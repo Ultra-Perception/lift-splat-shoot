@@ -24,20 +24,20 @@ def lidar_check(version,
                 viz_train=False,
                 nepochs=1,
 
-                H=900, W=1600,
-                resize_lim=(0.193, 0.225),
-                final_dim=(128, 352),
-                bot_pct_lim=(0.0, 0.22),
-                rot_lim=(-5.4, 5.4),
-                rand_flip=True,
+                H=900, W=1600, # 图片大小
+                resize_lim=(0.193, 0.225), #resize的范围
+                final_dim=(128, 352), #数据预处理之后最终的图片大小
+                bot_pct_lim=(0.0, 0.22), #裁剪图片时，图像底部裁剪掉部分所占比例范围
+                rot_lim=(-5.4, 5.4), #训练时旋转图片的角度范围
+                rand_flip=True, #是否随机翻转
 
-                xbound=[-50.0, 50.0, 0.5],
-                ybound=[-50.0, 50.0, 0.5],
-                zbound=[-10.0, 10.0, 20.0],
-                dbound=[4.0, 45.0, 1.0],
+                xbound=[-50.0, 50.0, 0.5], #限制x方向的范围并划分网格（单位：米）-50 - 50 slice: 0.5m
+                ybound=[-50.0, 50.0, 0.5], #限制y方向的范围并划分网格（单位：米）-50 - 50 slice: 0.5m
+                zbound=[-10.0, 10.0, 20.0], #限制z方向的范围并划分网格（单位：米）-10 - 10 slice: 20m
+                dbound=[4.0, 45.0, 1.0], #限制深度方向的范围并划分网格（单位：米） 4 - 45 slice: 1m
 
-                bsz=1,
-                nworkers=10,
+                bsz=1, #batach size 批大小
+                nworkers=10, # workers
                 ):
     grid_conf = {
         'xbound': xbound,
@@ -199,9 +199,9 @@ def eval_model_iou(version,
                 H=900, W=1600,
                 resize_lim=(0.193, 0.225),
                 final_dim=(128, 352),
-                bot_pct_lim=(0.0, 0.22),
-                rot_lim=(-5.4, 5.4),
-                rand_flip=True,
+                bot_pct_lim=(0.0, 0.22), # 裁剪图片时，图像底部裁掉部分所占的比例范围
+                rot_lim=(-5.4, 5.4), # 训练时旋转图片的角度范围
+                rand_flip=True, # 是否随机翻转
 
                 xbound=[-50.0, 50.0, 0.5],
                 ybound=[-50.0, 50.0, 0.5],
@@ -211,13 +211,13 @@ def eval_model_iou(version,
                 bsz=4,
                 nworkers=10,
                 ):
-    grid_conf = {
+    grid_conf = { # 网格配置
         'xbound': xbound,
         'ybound': ybound,
         'zbound': zbound,
         'dbound': dbound,
     }
-    data_aug_conf = {
+    data_aug_conf = { # 数据增强配置
                     'resize_lim': resize_lim,
                     'final_dim': final_dim,
                     'rot_lim': rot_lim,
